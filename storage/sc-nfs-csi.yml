@@ -1,0 +1,11 @@
+# sc-nfs-csi.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: aws9h-storage
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 211.183.3.99         # ✅ NFS 서버 IP
+  share: /shared              # ✅ 공유 디렉토리 경로
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
