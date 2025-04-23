@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.apps.news.name }}-deploy
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.apps.news.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.apps.news.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.apps.news.name }}
+    spec:
+      containers:
+        - name: {{ .Values.apps.news.name }}-container
+          image: {{ .Values.apps.news.image }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: {{ .Values.apps.news.name }}-volume
+              mountPath: /usr/share/nginx/html/
+      volumes:
+        - name: {{ .Values.apps.news.name }}-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.apps.news.name }}-pvc

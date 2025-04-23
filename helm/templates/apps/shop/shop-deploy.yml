@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.apps.shop.name }}-deploy
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.apps.shop.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.apps.shop.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.apps.shop.name }}
+    spec:
+      containers:
+        - name: {{ .Values.apps.shop.name }}-container
+          image: {{ .Values.apps.shop.image }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: {{ .Values.apps.shop.name }}-volume
+              mountPath: /usr/share/nginx/html/
+      volumes:
+        - name: {{ .Values.apps.shop.name }}-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.apps.shop.name }}-pvc

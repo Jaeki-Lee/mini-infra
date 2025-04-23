@@ -1,0 +1,56 @@
+global:
+  namespace: aws9h
+  storageClass: aws9h-storage
+  repoUrl: https://github.com/Jaeki-Lee/aws9h.git
+  targetRevision: HEAD
+  argoCD: argoCD
+
+---
+apps:
+  news:
+    name: news
+    image: hub.aws9.pri/library/news-nginx:v1
+    replicas: 3
+    storage: 1Gi
+    ingressPath: /news
+    cronScale:
+      enabled: true
+      start: "0 9 * * *"
+      end: "0 18 * * *"
+      desiredReplicas: 3
+    cpuThreshold: 60  # Fixed typo
+    gitrepoPath: news
+
+  blog:
+    name: blog
+    image: hub.aws9.pri/library/blog-nginx:v1
+    replicas: 3
+    storage: 1Gi
+    ingressPath: /blog
+    cronScale:
+      enabled: true
+      start: "0 9 * * *"
+      end: "0 18 * * *"
+      desiredReplicas: 3
+    cpuThreshold: 60
+    gitrepoPath: blog
+
+  shop:
+    name: shop
+    image: hub.aws9.pri/library/shop-nginx:v1
+    replicas: 3
+    storage: 1Gi
+    ingressPath: /shop
+    cronScale:
+      enabled: true
+      start: "0 9 * * *"
+      end: "0 18 * * *"
+      desiredReplicas: 3
+    cpuThreshold: 60
+    gitrepoPath: shop
+
+---
+metallb:
+  enabled: true
+  namespace: metallb-system
+  ipRange: 192.168.3.100-192.168.3.110

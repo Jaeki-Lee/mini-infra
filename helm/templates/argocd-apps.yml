@@ -1,0 +1,11 @@
+{{- if .Values.apps.news }}
+{{- include "argocd.app" (dict "app" .Values.apps.news "global" .Values.global) }}
+{{- end }}
+
+{{- if .Values.apps.blog }}
+{{- include "argocd.app" (dict "app" .Values.apps.blog "global" .Values.global) }}
+{{- end }}
+
+{{- if .Values.apps.shop }}
+{{- include "argocd.app" (dict "app" .Values.apps.shop "global" .Values.global) }}
+{{- end }}

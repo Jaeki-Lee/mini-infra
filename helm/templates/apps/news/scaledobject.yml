@@ -1,0 +1,25 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ .Values.apps.news.name }}-scaler
+  namespace: {{ .Values.global.namespace }}
+spec:
+  scaleTargetRef:
+    name: {{ .Values.apps.news.name }}-deploy
+  pollingInterval: 30
+  cooldownPeriod: 300
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: cpu
+      metadata:
+        type: Utilization
+        value: "{{ .Values.apps.news.cpuThreshold }}"
+{{- if .Values.apps.news.cronScale.enabled }}
+    - type: cron
+      metadata:
+        timezone: Asia/Seoul
+        start: "{{ .Values.apps.news.cronScale.start }}"
+        end: "{{ .Values.apps.news.cronScale.end }}"
+        desiredReplicas: "{{ .Values.apps.news.cronScale.desiredReplicas }}"
+{{- end }}

@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.apps.news.name }}-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: {{ .Values.apps.news.name }}
+  ports:
+    - port: 80
+      targetPort: 80
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.apps.news.name }}-pvc
+  namespace: {{ .Values.global.namespace }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.apps.news.storage }}
+  storageClassName: {{ .Values.global.storageClass }}

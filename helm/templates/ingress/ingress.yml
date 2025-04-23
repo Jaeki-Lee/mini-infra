@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aws9h-portal
+  namespace: {{ .Values.global.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.aws9.pri
+      http:
+        paths:
+{{- range $name, $app := .Values.apps }}
+          - path: "{{ $app.ingressPath }}(/|$)"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $app.name }}-service
+                port:
+                  number: 80
+{{- end }}
