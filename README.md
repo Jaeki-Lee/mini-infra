@@ -1,7 +1,6 @@
 # 🧩 K8s ToyProject - 온프레미스 인프라 워크플로우
 
-![K8S mini infra - Page 1](https://github.com/user-attachments/assets/e92e229b-91cf-42fe-ba5c-65217b6449a6)
-
+![K8S mini infra - Page 1 (1)](https://github.com/user-attachments/assets/84277b41-06a6-4930-98f6-2e56e25f5685)
 
 이 프로젝트는 Kubernetes 기반 온프레미스 인프라를 구축하고 자동 배포까지 완성하는 과정을 설명합니다.
 사용된 주요 노드는 다음과 같습니다:
