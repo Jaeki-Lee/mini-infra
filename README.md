@@ -28,7 +28,7 @@
 ## 4. 🌍 내부 DNS 서버 구축 (BIND)
 - `dnf-dns`에 BIND 기반 DNS 서버 설정
 - Zone: `aws9.pri`
-- 주요 레코드: `hub.aws9.pri`, `argocd.aws9.pri`, `www.aws9.pri`
+- 주요 레코드: `hub.aws9.pri(harbor)`, `argocd.aws9.pri(argoCD)`, `www.aws9.pri(ingress)`
 - 각 노드 `/etc/resolv.conf` 수정하여 DNS 서버 지정
 
 ## 5. 📦 NFS + CSI 기반 동적 볼륨 구성
